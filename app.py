@@ -62,7 +62,7 @@ def checkIn():
         print('account:', account)
         if account:
             cursor.execute(
-                'UPDATE students SET checked_in = true WHERE password = %s', (password, ))
+                'UPDATE students SET checked_in = true WHERE password = "%s"', (password, ))
             msg = 'Check in successfully!'
             return render_template('checkIn.html', msg=msg)
         else:
@@ -82,7 +82,7 @@ def checkOut():
         account = ''
         if account:
             cursor.execute(
-                'UPDATE students SET checked_in = false WHERE password = %s', (password, ))
+                'UPDATE students SET checked_in = false WHERE password = "%s"', (password, ))
             msg = 'Check Out successfully!'
             return render_template('checkOut.html', msg=msg)
         else:
