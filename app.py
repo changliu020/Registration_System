@@ -60,14 +60,13 @@ def checkIn():
             'SELECT * FROM students WHERE password = %s', (password, ))
         account = cursor.fetchone()
         print('account:', account)
-        # if account:
-        #     session['loggedin'] = True
-        #     session['id'] = account['id']
-        #     session['username'] = account['username']
-        #     msg = 'Check in successfully!'
-        #     return render_template('checkIn.html', msg=msg)
-        # else:
-        #     msg = 'Incorrect password !'
+        if account:
+            cursor.execute(
+                'UPDATE students SET checked_in = true WHERE password = %s', (password, ))
+            msg = 'Check in successfully!'
+            return render_template('checkIn.html', msg=msg)
+        else:
+            msg = 'Incorrect password !'
     return render_template('checkIn.html', msg=msg)
 
 
@@ -76,16 +75,15 @@ def checkOut():
     msg = ''
     if request.method == 'POST' and 'password' in request.form:
         password = request.form['password']
-        # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        # cursor.execute(
-        #     'SELECT * FROM accounts WHERE username = % s AND password = % s', (username, password, ))
-        # account = cursor.fetchone()
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute(
+            'SELECT * FROM students WHERE password = %s', (password, ))
+        account = cursor.fetchone()
         account = ''
         if account:
-            session['loggedin'] = True
-            session['id'] = account['id']
-            session['username'] = account['username']
-            msg = 'check out successfully!'
+            cursor.execute(
+                'UPDATE students SET checked_in = false WHERE password = %s', (password, ))
+            msg = 'Check Out successfully!'
             return render_template('checkOut.html', msg=msg)
         else:
             msg = 'Incorrect password!'
