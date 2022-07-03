@@ -59,7 +59,6 @@ def checkIn():
         cursor.execute(
             'SELECT * FROM students WHERE password = %s', (password, ))
         account = cursor.fetchone()
-        print('account:', account)
         if account:
             cursor.execute(
                 'UPDATE students SET checked_in = true WHERE password = "%s"', (password, ))
@@ -79,7 +78,6 @@ def checkOut():
         cursor.execute(
             'SELECT * FROM students WHERE password = %s', (password, ))
         account = cursor.fetchone()
-        account = ''
         if account:
             cursor.execute(
                 'UPDATE students SET checked_in = false WHERE password = "%s"', (password, ))
