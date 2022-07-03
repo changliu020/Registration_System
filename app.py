@@ -55,19 +55,19 @@ def checkIn():
     msg = ''
     if request.method == 'POST' and 'password' in request.form:
         password = request.form['password']
-        # cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        # cursor.execute(
-        #     'SELECT * FROM accounts WHERE username = % s AND password = % s', (username, password, ))
-        # account = cursor.fetchone()
-        account = ''
-        if account:
-            session['loggedin'] = True
-            session['id'] = account['id']
-            session['username'] = account['username']
-            msg = 'Check in successfully!'
-            return render_template('checkIn.html', msg=msg)
-        else:
-            msg = 'Incorrect password !'
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute(
+            'SELECT * FROM accounts WHERE password = %s', (password, ))
+        account = cursor.fetchone()
+        print('account:', account)
+        # if account:
+        #     session['loggedin'] = True
+        #     session['id'] = account['id']
+        #     session['username'] = account['username']
+        #     msg = 'Check in successfully!'
+        #     return render_template('checkIn.html', msg=msg)
+        # else:
+        #     msg = 'Incorrect password !'
     return render_template('checkIn.html', msg=msg)
 
 
