@@ -57,7 +57,7 @@ def checkIn():
         password = request.form['password']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
-            'SELECT * FROM accounts WHERE password = %s', (password, ))
+            'SELECT * FROM students WHERE password = %s', (password, ))
         account = cursor.fetchone()
         print('account:', account)
         # if account:
