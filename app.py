@@ -64,6 +64,7 @@ def checkIn():
             cursor.execute(
                 'UPDATE students SET checked_in = true WHERE password = "%s";', (password, ))
             msg = 'Check in successfully!'
+            mysql.connection.commit()
             return render_template('checkIn.html', msg=msg)
         else:
             msg = 'Incorrect password !'
@@ -84,6 +85,7 @@ def checkOut():
             cursor.execute(
                 'UPDATE students SET checked_in = false WHERE password = "%s";', (password, ))
             msg = 'Check Out successfully!'
+            mysql.connection.commit()
             return render_template('checkOut.html', msg=msg)
         else:
             msg = 'Incorrect password!'
